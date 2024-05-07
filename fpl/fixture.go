@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"strconv"
 )
+
 const (
-	fixtureAddress = "https://fantasy.premierleague.com/api/fixtures/"
+	fixtureAddress = "https://draft.premierleague.com/api/fixtures/"
 )
 
 // returns fixture endpoint
@@ -29,9 +30,9 @@ func (c *Client) GetFixture() ([]Fixture, error) {
 	return fixture, nil
 }
 
-func (c *Client) GetWeeklyFixture(gameWeek int) (*WeeklyFixture, error){
+func (c *Client) GetWeeklyFixture(gameWeek int) (*WeeklyFixture, error) {
 
-	url := fmt.Sprintf(fixtureAddress +"?event=" + strconv.Itoa(gameWeek) )
+	url := fmt.Sprintf(fixtureAddress + "?event=" + strconv.Itoa(gameWeek))
 
 	wf := &WeeklyFixture{}
 

@@ -8,7 +8,7 @@ func TestNewRequest(t *testing.T) {
 
 	c := NewClient(nil)
 
-	got, err := c.NewRequest("GET", "https://fantasy.premierleague.com/api")
+	got, err := c.NewRequest("GET", "https://draft.premierleague.com/api")
 	if err != nil {
 		t.Errorf("GOT: %v, There is no accessible url", got)
 	}
@@ -18,7 +18,7 @@ func TestDo(t *testing.T) {
 
 	c := NewClient(nil)
 
-	response, err := c.NewRequest("GET", "https://fantasy.premierleague.com/api")
+	response, err := c.NewRequest("GET", "https://draft.premierleague.com/api")
 	if err != nil {
 		t.Error(err)
 	}

@@ -1,3 +1,3 @@
-module github.com/berkguzel/fpl-go
+module github.com/UberJoe/draft-fpl-go
 
 go 1.15
