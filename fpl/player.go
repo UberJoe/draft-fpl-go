@@ -69,49 +69,32 @@ func (c *Client) ListPlayerHistory(playerID int) ([]PlayerHistory, error) {
 	return playerHistory, nil
 }
 
-// football player's informations for previous seasons
-// func (c *Client) ListPlayerHistoryPast(playerID int) ([]PlayerHistoryPast, error) {
-
-// 	player, err := c.GetPlayer(playerID)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	pf, err := json.Marshal(player.HistoryPast)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	var playerHistoryPast []PlayerHistoryPast
-// 	if err := json.Unmarshal(pf, &playerHistoryPast); err != nil {
-// 		return nil, err
-// 	}
-
-// 	return playerHistoryPast, nil
-// }
-
 // learn code of player
 func (c *Client) GetCodeOfPlayer(name string) (int, error) {
-
 	players, err := c.GetInfoOfPlayers()
 	if err != nil {
 		return 0, err
 	}
 
+	playerMap := make(map[string]int)
 	for _, v := range players {
-		if v.FirstName == name {
-			return v.ID, nil
-		}
+		playerMap[v.FirstName] = v.ID
+	}
+
+	if id, ok := playerMap[name]; ok {
+		return id, nil
 	}
 
 	return 0, errors.New("could not find footballer")
-
 }
 
 // detailed informations of footballers
 func (c *Client) GetInfoOfPlayers() ([]PlayerDetailedInfo, error) {
 
-	general, _ := c.GetGeneral()
+	general, err := c.GetGeneral()
+	if err != nil {
+		return nil, err
+	}
 
 	var e []PlayerDetailedInfo
 

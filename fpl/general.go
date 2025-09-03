@@ -2,6 +2,7 @@ package fpl
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 func (c *Client) GetGeneral() (*General, error) {
@@ -25,7 +26,10 @@ func (c *Client) GetGeneral() (*General, error) {
 // information of current EPL clubs
 func (c *Client) ListClubsInfo() ([]TeamResponse, error) {
 
-	general, _ := c.GetGeneral()
+	general, err := c.GetGeneral()
+	if err != nil {
+		return nil, fmt.Errorf("failed to fetch general data: %w", err)
+	}
 
 	var t []TeamResponse
 
@@ -44,7 +48,10 @@ func (c *Client) ListClubsInfo() ([]TeamResponse, error) {
 // informations of game weeks
 func (c *Client) ListEventInfo() (*EventsResponse, error) {
 
-	general, _ := c.GetGeneral()
+	general, err := c.GetGeneral()
+	if err != nil {
+		return nil, fmt.Errorf("failed to fetch general data: %w", err)
+	}
 
 	var e *EventsResponse
 

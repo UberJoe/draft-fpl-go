@@ -3,17 +3,21 @@ package fpl
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"strconv"
 )
 
 // points of the manager by given game week
 func (c *Client) ListWeeklyPoints(gameWeek int, managerID string) ([]EntryHistoryWeek, error) {
+	if gameWeek <= 0 {
+		return nil, fmt.Errorf("invalid game week: %d", gameWeek)
+	}
 
 	url := "https://draft.premierleague.com/api/entry/" + managerID + "/history"
 
 	response, err := c.NewRequest("GET", url)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to create request for manager history: %w", err)
 	}
 
 	v := &EntryHistory{}

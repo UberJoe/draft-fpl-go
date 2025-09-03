@@ -3,6 +3,7 @@ package fpl
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 )
 
 // league endpoint according to given league id
@@ -12,7 +13,7 @@ func (c *Client) GetLeagueDetails(leagueID string) (*LeagueInfo, error) {
 
 	response, err := c.NewRequest("GET", url)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to create request for league details: %w", err)
 	}
 
 	l := &LeagueInfo{}
@@ -69,28 +70,26 @@ func (c *Client) GetLeagueEntries(leagueID string) (*LeagueEntriesResponse, erro
 
 // standings according to given league id
 func (c *Client) GetStandings(leagueID string) ([]StandingsResponse, error) {
-
+	// Fetch league details
 	s, err := c.GetLeagueDetails(leagueID)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to fetch league details: %w", err)
 	}
 
-	standings := s.Standings
-
-	var league []StandingsResponse
-	l := &StandingsResponse{}
-
-	for _, v := range standings {
-		resp, _ := json.Marshal(v)
-		if err = json.Unmarshal(resp, &l); err != nil {
-			return nil, err
+	// Map standings to StandingsResponse
+	standings := make([]StandingsResponse, len(s.Standings))
+	for i, v := range s.Standings {
+		standings[i] = StandingsResponse{
+			EventTotal:  v.EventTotal,
+			LastRank:    v.LastRank,
+			LeagueEntry: v.LeagueEntry,
+			Rank:        v.Rank,
+			RankSort:    v.RankSort,
+			Total:       v.Total,
 		}
-		league = append(league, *l)
-
 	}
 
-	return league, nil
-
+	return standings, nil
 }
 
 // information about the team according to league
