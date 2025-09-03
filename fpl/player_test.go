@@ -49,20 +49,20 @@ func TestPlayerHistory(t *testing.T) {
 
 }
 
-func TestPlayerHistoryPast(t *testing.T) {
+// func TestPlayerHistoryPast(t *testing.T) {
 
-	c := NewClient(nil)
+// 	c := NewClient(nil)
 
-	got, err := c.ListPlayerHistoryPast(1)
-	if err != nil {
-		t.Errorf("Could not access to data")
-	}
+// 	got, err := c.ListPlayerHistoryPast(1)
+// 	if err != nil {
+// 		t.Errorf("Could not access to data")
+// 	}
 
-	if got == nil {
-		t.Errorf("Somethings went wrong")
-	}
+// 	if got == nil {
+// 		t.Errorf("Somethings went wrong")
+// 	}
 
-}
+// }
 
 func TestGetCodeOfPlayer(t *testing.T) {
 
@@ -77,7 +77,7 @@ func TestGetCodeOfPlayer(t *testing.T) {
 	}
 }
 
-func InfoOfPlayers(t *testing.T) {
+func TestInfoOfPlayers(t *testing.T) {
 
 	c := NewClient(nil)
 

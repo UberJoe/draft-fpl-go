@@ -6,9 +6,9 @@ import (
 )
 
 // league endpoint according to given league id
-func (c *Client) GetLeague(leagueID string) (*LeagueInfo, error) {
+func (c *Client) GetLeagueDetails(leagueID string) (*LeagueInfo, error) {
 
-	url := "https://fantasy.premierleague.com/api/leagues-classic/" + leagueID + "/standings/"
+	url := "https://draft.premierleague.com/api/league/" + leagueID + "/details"
 
 	response, err := c.NewRequest("GET", url)
 	if err != nil {
@@ -25,15 +25,57 @@ func (c *Client) GetLeague(leagueID string) (*LeagueInfo, error) {
 	return l, nil
 }
 
-// standings according to given league id
-func (c *Client) GetStandings(leagueID string) ([]StandingsResponse, error) {
-
-	s, err := c.GetLeague(leagueID)
+func (c *Client) GetLeague(leagueID string) (*LeagueResponse, error) {
+	s, err := c.GetLeagueDetails(leagueID)
 	if err != nil {
 		return nil, err
 	}
 
-	standings := s.Standings.Results
+	var l *LeagueResponse
+
+	m, err := json.Marshal(s.League)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := json.Unmarshal(m, &l); err != nil {
+		return nil, err
+	}
+
+	return l, nil
+
+}
+
+func (c *Client) GetLeagueEntries(leagueID string) (*LeagueEntriesResponse, error) {
+	s, err := c.GetLeagueDetails(leagueID)
+	if err != nil {
+		return nil, err
+	}
+
+	var e *LeagueEntriesResponse
+
+	m, err := json.Marshal(s.League)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := json.Unmarshal(m, &e); err != nil {
+		return nil, err
+	}
+
+	return e, nil
+
+}
+
+// standings according to given league id
+func (c *Client) GetStandings(leagueID string) ([]StandingsResponse, error) {
+
+	s, err := c.GetLeagueDetails(leagueID)
+	if err != nil {
+		return nil, err
+	}
+
+	standings := s.Standings
 
 	var league []StandingsResponse
 	l := &StandingsResponse{}
@@ -51,33 +93,8 @@ func (c *Client) GetStandings(leagueID string) ([]StandingsResponse, error) {
 
 }
 
-// new entries of the league
-func (c *Client) GetNewEntries(leagueID string) ([]NewEntriesResponse, error) {
-
-	s, err := c.GetLeague(leagueID)
-	if err != nil {
-		return nil, err
-	}
-
-	newEntries := s.NewEntries
-
-	ent, err := json.Marshal(newEntries)
-	if err != nil {
-		return nil, err
-	}
-
-	e := &NewEntriesResponse{}
-	var newEntriesResponse []NewEntriesResponse
-	if err := json.Unmarshal(ent, &e); err != nil {
-		return nil, err
-	}
-	newEntriesResponse = append(newEntriesResponse, *e)
-
-	return newEntriesResponse, nil
-}
-
 // information about the team according to league
-func (c *Client) GetTeamInfoInLeague(leagueID string, teamName string) (*StandingsResponse, error) {
+func (c *Client) GetTeamInfoInLeague(leagueID string, entryId int) (*StandingsResponse, error) {
 
 	league, err := c.GetStandings(leagueID)
 	if err != nil {
@@ -85,10 +102,10 @@ func (c *Client) GetTeamInfoInLeague(leagueID string, teamName string) (*Standin
 	}
 
 	for _, v := range league {
-		if v.EntryName == teamName {
+		if v.LeagueEntry == entryId {
 			return &v, nil
 		}
 	}
 
-	return nil, errors.New("Could not find team in league")
+	return nil, errors.New("could not find team in league")
 }

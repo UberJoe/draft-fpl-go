@@ -6,7 +6,7 @@ import (
 
 func (c *Client) GetGeneral() (*General, error) {
 
-	url := "https://fantasy.premierleague.com/api/bootstrap-static/"
+	url := "https://draft.premierleague.com/api/bootstrap-static"
 
 	response, err := c.NewRequest("GET", url)
 	if err != nil {
@@ -42,11 +42,11 @@ func (c *Client) ListClubsInfo() ([]TeamResponse, error) {
 }
 
 // informations of game weeks
-func (c *Client) ListEventInfo() ([]EventsResponse, error) {
+func (c *Client) ListEventInfo() (*EventsResponse, error) {
 
 	general, _ := c.GetGeneral()
 
-	var e []EventsResponse
+	var e *EventsResponse
 
 	m, err := json.Marshal(general.Events)
 	if err != nil {
@@ -58,26 +58,6 @@ func (c *Client) ListEventInfo() ([]EventsResponse, error) {
 	}
 
 	return e, nil
-
-}
-
-// phases of EPL season
-func (c *Client) ListPhasesInfo() ([]PhasesResponse, error) {
-
-	general, _ := c.GetGeneral()
-
-	var p []PhasesResponse
-
-	m, err := json.Marshal(general.Phases)
-	if err != nil {
-		return nil, err
-	}
-
-	if err := json.Unmarshal(m, &p); err != nil {
-		return nil, err
-	}
-
-	return p, nil
 
 }
 
@@ -122,13 +102,13 @@ func (c *Client) ListElementTypesInfo() ([]ElementTypesResponse, error) {
 }
 
 // game settings
-func (c *Client) ListGameSettings() ([]GameSettingsResponse, error) {
+func (c *Client) ListSettings() ([]SettingsResponse, error) {
 
 	general, _ := c.GetGeneral()
 
-	g := &GameSettingsResponse{}
+	g := &SettingsResponse{}
 
-	m, err := json.Marshal(general.GameSettings)
+	m, err := json.Marshal(general.Settings)
 	if err != nil {
 		return nil, err
 	}
@@ -137,7 +117,7 @@ func (c *Client) ListGameSettings() ([]GameSettingsResponse, error) {
 		return nil, err
 	}
 
-	var gameResponse []GameSettingsResponse
+	var gameResponse []SettingsResponse
 	gameResponse = append(gameResponse, *g)
 
 	return gameResponse, nil

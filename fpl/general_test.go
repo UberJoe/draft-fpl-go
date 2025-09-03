@@ -46,20 +46,6 @@ func TestListEventInfo(t *testing.T) {
 	}
 }
 
-func TestListPhasesInfo(t *testing.T) {
-
-	c := NewClient(nil)
-
-	got, err := c.ListEventInfo()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if got == nil {
-		t.Errorf("Could do not be succeed, Got: %+v", got)
-	}
-}
-
 func TestListElementStatsInfo(t *testing.T) {
 
 	c := NewClient(nil)
@@ -88,11 +74,11 @@ func TestListElementTypesInfo(t *testing.T) {
 	}
 }
 
-func TestListGameSettings(t *testing.T) {
+func TestListSettings(t *testing.T) {
 
 	c := NewClient(nil)
 
-	got, err := c.ListGameSettings()
+	got, err := c.ListSettings()
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -7,33 +7,33 @@ import (
 )
 
 // points of the manager by given game week
-func (c *Client) ListWeeklyPoints(gameWeek int, managerID string) ([]WeeklyInfo, error) {
+func (c *Client) ListWeeklyPoints(gameWeek int, managerID string) ([]EntryHistoryWeek, error) {
 
-	url := "https://fantasy.premierleague.com/api/entry/" + managerID + "/history/"
+	url := "https://draft.premierleague.com/api/entry/" + managerID + "/history"
 
 	response, err := c.NewRequest("GET", url)
 	if err != nil {
 		return nil, err
 	}
 
-	v := &Weekly{}
+	v := &EntryHistory{}
 
 	_, err = c.Do(response, v)
 	if err != nil {
 		return nil, err
 	}
 
-	var wResponse []WeeklyInfo
-	for index, value := range v.Current {
+	var wResponse []EntryHistoryWeek
+	for index, value := range v.History {
 
 		if value.Event == gameWeek {
 
-			m, err := json.Marshal(v.Current[index])
+			m, err := json.Marshal(v.History[index])
 			if err != nil {
 				return nil, err
 			}
 
-			w := &WeeklyInfo{}
+			w := &EntryHistoryWeek{}
 
 			if err := json.Unmarshal(m, &w); err != nil {
 				return nil, err
@@ -43,36 +43,33 @@ func (c *Client) ListWeeklyPoints(gameWeek int, managerID string) ([]WeeklyInfo,
 			return wResponse, nil
 		}
 	}
-	return nil, errors.New("Could not find game week")
+	return nil, errors.New("could not find game week")
 }
 
 // points of the manager for all game weeks
-func (c *Client) ListAllWeeks(managerID string) ([]Weekly, error) {
+func (c *Client) ListAllWeeks(managerID string) ([]EntryHistoryWeek, error) {
 
-	url := "https://fantasy.premierleague.com/api/entry/" + managerID + "/history/"
+	url := "https://draft.premierleague.com/api/entry/" + managerID + "/history"
 
 	response, err := c.NewRequest("GET", url)
 	if err != nil {
 		return nil, err
 	}
 
-	v := &Weekly{}
+	v := &EntryHistory{}
 
 	_, err = c.Do(response, v)
 	if err != nil {
 		return nil, err
 	}
 
-	var allWeeks []Weekly
-	allWeeks = append(allWeeks, *v)
-
-	return allWeeks, nil
+	return v.History, nil
 }
 
 // individual performances of players by given game week
 func (c *Client) ListWeeklyPerformance(gameWeek int, managerID string) ([]TeamWeekly, error) {
 
-	url := "https://fantasy.premierleague.com/api/entry/" + managerID + "/event/" + strconv.Itoa(gameWeek) + "/picks/"
+	url := "https://draft.premierleague.com/api/entry/" + managerID + "/event/" + strconv.Itoa(gameWeek)
 
 	response, err := c.NewRequest("GET", url)
 	if err != nil {

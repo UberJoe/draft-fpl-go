@@ -2,7 +2,7 @@ package fpl
 
 func (c *Client) ListTransfers(managerID string) ([]TransferHistory, error) {
 
-	url := "https://fantasy.premierleague.com/api/entry/" + managerID + "/transfers/"
+	url := "https://draft.premierleague.com/api/draft/league/" + managerID + "/transactions"
 
 	response, err := c.NewRequest("GET", url)
 	if err != nil {

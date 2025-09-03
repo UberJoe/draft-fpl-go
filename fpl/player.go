@@ -10,7 +10,7 @@ import (
 func (c *Client) GetPlayer(playerID int) (*Player, error) {
 
 	id := strconv.Itoa(playerID)
-	url := "https://fantasy.premierleague.com/api/element-summary/" + id + "/"
+	url := "https://draft.premierleague.com/api/element-summary/" + id
 
 	response, err := c.NewRequest("GET", url)
 	if err != nil {
@@ -70,25 +70,25 @@ func (c *Client) ListPlayerHistory(playerID int) ([]PlayerHistory, error) {
 }
 
 // football player's informations for previous seasons
-func (c *Client) ListPlayerHistoryPast(playerID int) ([]PlayerHistoryPast, error) {
+// func (c *Client) ListPlayerHistoryPast(playerID int) ([]PlayerHistoryPast, error) {
 
-	player, err := c.GetPlayer(playerID)
-	if err != nil {
-		return nil, err
-	}
+// 	player, err := c.GetPlayer(playerID)
+// 	if err != nil {
+// 		return nil, err
+// 	}
 
-	pf, err := json.Marshal(player.HistoryPast)
-	if err != nil {
-		return nil, err
-	}
+// 	pf, err := json.Marshal(player.HistoryPast)
+// 	if err != nil {
+// 		return nil, err
+// 	}
 
-	var playerHistoryPast []PlayerHistoryPast
-	if err := json.Unmarshal(pf, &playerHistoryPast); err != nil {
-		return nil, err
-	}
+// 	var playerHistoryPast []PlayerHistoryPast
+// 	if err := json.Unmarshal(pf, &playerHistoryPast); err != nil {
+// 		return nil, err
+// 	}
 
-	return playerHistoryPast, nil
-}
+// 	return playerHistoryPast, nil
+// }
 
 // learn code of player
 func (c *Client) GetCodeOfPlayer(name string) (int, error) {
@@ -104,7 +104,7 @@ func (c *Client) GetCodeOfPlayer(name string) (int, error) {
 		}
 	}
 
-	return 0, errors.New("Could not find footballer")
+	return 0, errors.New("could not find footballer")
 
 }
 

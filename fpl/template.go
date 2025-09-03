@@ -5,149 +5,52 @@ import (
 )
 
 type General struct {
-	Events []struct {
-		ID                     int    `json:"id"`
-		Name                   string `json:"name"`
-		DeadlineTime           string `json:"deadline_time"`
-		AverageEntryScore      int    `json:"average_entry_score"`
-		Finished               bool   `json:"finished"`
-		DataChecked            bool   `json:"data_checked"`
-		HighestScoringEntry    int    `json:"highest_scoring_entry"`
-		DeadlineTimeEpoch      int    `json:"deadline_time_epoch"`
-		DeadlineTimeGameOffset int    `json:"deadline_time_game_offset"`
-		HighestScore           int    `json:"highest_score"`
-		IsPrevious             bool   `json:"is_previous"`
-		IsCurrent              bool   `json:"is_current"`
-		IsNext                 bool   `json:"is_next"`
-		ChipPlays              []struct {
-			ChipName  string `json:"chip_name"`
-			NumPlayed int    `json:"num_played"`
-		} `json:"chip_plays"`
-		MostSelected      int `json:"most_selected"`
-		MostTransferredIn int `json:"most_transferred_in"`
-		TopElement        int `json:"top_element"`
-		TopElementInfo    struct {
-			ID     int `json:"id"`
-			Points int `json:"points"`
-		} `json:"top_element_info"`
-		TransfersMade     int `json:"transfers_made"`
-		MostCaptained     int `json:"most_captained"`
-		MostViceCaptained int `json:"most_vice_captained"`
-	} `json:"events"`
-	GameSettings struct {
-		LeagueJoinPrivateMax         int           `json:"league_join_private_max"`
-		LeagueJoinPublicMax          int           `json:"league_join_public_max"`
-		LeagueMaxSizePublicClassic   int           `json:"league_max_size_public_classic"`
-		LeagueMaxSizePublicH2H       int           `json:"league_max_size_public_h2h"`
-		LeagueMaxSizePrivateH2H      int           `json:"league_max_size_private_h2h"`
-		LeagueMaxKoRoundsPrivateH2H  int           `json:"league_max_ko_rounds_private_h2h"`
-		LeaguePrefixPublic           string        `json:"league_prefix_public"`
-		LeaguePointsH2HWin           int           `json:"league_points_h2h_win"`
-		LeaguePointsH2HLose          int           `json:"league_points_h2h_lose"`
-		LeaguePointsH2HDraw          int           `json:"league_points_h2h_draw"`
-		LeagueKoFirstInsteadOfRandom bool          `json:"league_ko_first_instead_of_random"`
-		CupStartEventID              int           `json:"cup_start_event_id"`
-		CupStopEventID               int           `json:"cup_stop_event_id"`
-		CupQualifyingMethod          string        `json:"cup_qualifying_method"`
-		CupType                      string        `json:"cup_type"`
-		SquadSquadplay               int           `json:"squad_squadplay"`
-		SquadSquadsize               int           `json:"squad_squadsize"`
-		SquadTeamLimit               int           `json:"squad_team_limit"`
-		SquadTotalSpend              int           `json:"squad_total_spend"`
-		UICurrencyMultiplier         int           `json:"ui_currency_multiplier"`
-		UIUseSpecialShirts           bool          `json:"ui_use_special_shirts"`
-		UISpecialShirtExclusions     []interface{} `json:"ui_special_shirt_exclusions"`
-		StatsFormDays                int           `json:"stats_form_days"`
-		SysViceCaptainEnabled        bool          `json:"sys_vice_captain_enabled"`
-		TransfersCap                 int           `json:"transfers_cap"`
-		TransfersSellOnFee           float64       `json:"transfers_sell_on_fee"`
-		LeagueH2HTiebreakStats       []string      `json:"league_h2h_tiebreak_stats"`
-		Timezone                     string        `json:"timezone"`
-	} `json:"game_settings"`
-	Phases []struct {
-		ID         int    `json:"id"`
-		Name       string `json:"name"`
-		StartEvent int    `json:"start_event"`
-		StopEvent  int    `json:"stop_event"`
-	} `json:"phases"`
-	Teams []struct {
-		Code                int         `json:"code"`
-		Draw                int         `json:"draw"`
-		Form                interface{} `json:"form"`
-		ID                  int         `json:"id"`
-		Loss                int         `json:"loss"`
-		Name                string      `json:"name"`
-		Played              int         `json:"played"`
-		Points              int         `json:"points"`
-		Position            int         `json:"position"`
-		ShortName           string      `json:"short_name"`
-		Strength            int         `json:"strength"`
-		TeamDivision        interface{} `json:"team_division"`
-		Unavailable         bool        `json:"unavailable"`
-		Win                 int         `json:"win"`
-		StrengthOverallHome int         `json:"strength_overall_home"`
-		StrengthOverallAway int         `json:"strength_overall_away"`
-		StrengthAttackHome  int         `json:"strength_attack_home"`
-		StrengthAttackAway  int         `json:"strength_attack_away"`
-		StrengthDefenceHome int         `json:"strength_defence_home"`
-		StrengthDefenceAway int         `json:"strength_defence_away"`
-		PulseID             int         `json:"pulse_id"`
-	} `json:"teams"`
-	TotalPlayers int `json:"total_players"`
-	Elements     []struct {
+	Elements []struct {
+		ID                               int         `json:"id"`
+		Assists                          int         `json:"assists"`
+		Bonus                            int         `json:"bonus"`
+		Bps                              int         `json:"bps"`
+		CleanSheets                      int         `json:"clean_sheets"`
+		Creativity                       string      `json:"creativity"`
+		GoalsConceded                    int         `json:"goals_conceded"`
+		GoalsScored                      int         `json:"goals_scored"`
+		IctIndex                         string      `json:"ict_index"`
+		Influence                        string      `json:"influence"`
+		Minutes                          int         `json:"minutes"`
+		OwnGoals                         int         `json:"own_goals"`
+		PenaltiesMissed                  int         `json:"penalties_missed"`
+		PenaltiesSaved                   int         `json:"penalties_saved"`
+		RedCards                         int         `json:"red_cards"`
+		Saves                            int         `json:"saves"`
+		Threat                           string      `json:"threat"`
+		YellowCards                      int         `json:"yellow_cards"`
+		Starts                           int         `json:"starts"`
+		ExpectedGoals                    string      `json:"expected_goals"`
+		ExpectedAssists                  string      `json:"expected_assists"`
+		ExpectedGoalInvolvements         string      `json:"expected_goal_involvements"`
+		ExpectedGoalsConceded            string      `json:"expected_goals_conceded"`
+		Added                            time.Time   `json:"added"`
 		ChanceOfPlayingNextRound         int         `json:"chance_of_playing_next_round"`
 		ChanceOfPlayingThisRound         int         `json:"chance_of_playing_this_round"`
 		Code                             int         `json:"code"`
-		CostChangeEvent                  int         `json:"cost_change_event"`
-		CostChangeEventFall              int         `json:"cost_change_event_fall"`
-		CostChangeStart                  int         `json:"cost_change_start"`
-		CostChangeStartFall              int         `json:"cost_change_start_fall"`
+		DraftRank                        int         `json:"draft_rank"`
 		DreamteamCount                   int         `json:"dreamteam_count"`
-		ElementType                      int         `json:"element_type"`
-		EpNext                           string      `json:"ep_next"`
-		EpThis                           string      `json:"ep_this"`
+		EpNext                           interface{} `json:"ep_next"`
+		EpThis                           interface{} `json:"ep_this"`
 		EventPoints                      int         `json:"event_points"`
 		FirstName                        string      `json:"first_name"`
 		Form                             string      `json:"form"`
-		ID                               int         `json:"id"`
 		InDreamteam                      bool        `json:"in_dreamteam"`
 		News                             string      `json:"news"`
 		NewsAdded                        time.Time   `json:"news_added"`
-		NowCost                          int         `json:"now_cost"`
-		Photo                            string      `json:"photo"`
+		NewsReturn                       interface{} `json:"news_return"`
+		NewsUpdated                      interface{} `json:"news_updated"`
 		PointsPerGame                    string      `json:"points_per_game"`
 		SecondName                       string      `json:"second_name"`
-		SelectedByPercent                string      `json:"selected_by_percent"`
-		Special                          bool        `json:"special"`
 		SquadNumber                      interface{} `json:"squad_number"`
 		Status                           string      `json:"status"`
-		Team                             int         `json:"team"`
-		TeamCode                         int         `json:"team_code"`
 		TotalPoints                      int         `json:"total_points"`
-		TransfersIn                      int         `json:"transfers_in"`
-		TransfersInEvent                 int         `json:"transfers_in_event"`
-		TransfersOut                     int         `json:"transfers_out"`
-		TransfersOutEvent                int         `json:"transfers_out_event"`
-		ValueForm                        string      `json:"value_form"`
-		ValueSeason                      string      `json:"value_season"`
 		WebName                          string      `json:"web_name"`
-		Minutes                          int         `json:"minutes"`
-		GoalsScored                      int         `json:"goals_scored"`
-		Assists                          int         `json:"assists"`
-		CleanSheets                      int         `json:"clean_sheets"`
-		GoalsConceded                    int         `json:"goals_conceded"`
-		OwnGoals                         int         `json:"own_goals"`
-		PenaltiesSaved                   int         `json:"penalties_saved"`
-		PenaltiesMissed                  int         `json:"penalties_missed"`
-		YellowCards                      int         `json:"yellow_cards"`
-		RedCards                         int         `json:"red_cards"`
-		Saves                            int         `json:"saves"`
-		Bonus                            int         `json:"bonus"`
-		Bps                              int         `json:"bps"`
-		Influence                        string      `json:"influence"`
-		Creativity                       string      `json:"creativity"`
-		Threat                           string      `json:"threat"`
-		IctIndex                         string      `json:"ict_index"`
 		InfluenceRank                    int         `json:"influence_rank"`
 		InfluenceRankType                int         `json:"influence_rank_type"`
 		CreativityRank                   int         `json:"creativity_rank"`
@@ -156,91 +59,96 @@ type General struct {
 		ThreatRankType                   int         `json:"threat_rank_type"`
 		IctIndexRank                     int         `json:"ict_index_rank"`
 		IctIndexRankType                 int         `json:"ict_index_rank_type"`
+		FormRank                         interface{} `json:"form_rank"`
+		FormRankType                     interface{} `json:"form_rank_type"`
+		PointsPerGameRank                interface{} `json:"points_per_game_rank"`
+		PointsPerGameRankType            interface{} `json:"points_per_game_rank_type"`
 		CornersAndIndirectFreekicksOrder interface{} `json:"corners_and_indirect_freekicks_order"`
 		CornersAndIndirectFreekicksText  string      `json:"corners_and_indirect_freekicks_text"`
 		DirectFreekicksOrder             interface{} `json:"direct_freekicks_order"`
 		DirectFreekicksText              string      `json:"direct_freekicks_text"`
 		PenaltiesOrder                   interface{} `json:"penalties_order"`
 		PenaltiesText                    string      `json:"penalties_text"`
+		ElementType                      int         `json:"element_type"`
+		Team                             int         `json:"team"`
 	} `json:"elements"`
-	ElementStats []struct {
-		Label string `json:"label"`
-		Name  string `json:"name"`
-	} `json:"element_stats"`
 	ElementTypes []struct {
-		ID                 int    `json:"id"`
-		PluralName         string `json:"plural_name"`
-		PluralNameShort    string `json:"plural_name_short"`
-		SingularName       string `json:"singular_name"`
-		SingularNameShort  string `json:"singular_name_short"`
-		SquadSelect        int    `json:"squad_select"`
-		SquadMinPlay       int    `json:"squad_min_play"`
-		SquadMaxPlay       int    `json:"squad_max_play"`
-		UIShirtSpecific    bool   `json:"ui_shirt_specific"`
-		SubPositionsLocked []int  `json:"sub_positions_locked"`
-		ElementCount       int    `json:"element_count"`
+		ID                int    `json:"id"`
+		ElementCount      int    `json:"element_count"`
+		SingularName      string `json:"singular_name"`
+		SingularNameShort string `json:"singular_name_short"`
+		PluralName        string `json:"plural_name"`
+		PluralNameShort   string `json:"plural_name_short"`
 	} `json:"element_types"`
+	ElementStats []struct {
+		Name           string      `json:"name"`
+		Label          string      `json:"label"`
+		Abbreviation   string      `json:"abbreviation"`
+		IsMatchStat    bool        `json:"is_match_stat"`
+		MatchStatOrder interface{} `json:"match_stat_order"`
+		Sort           string      `json:"sort"`
+	} `json:"element_stats"`
+	Events struct {
+		Current int `json:"current"`
+		Data    []struct {
+			AverageEntryScore   interface{} `json:"average_entry_score"`
+			DeadlineTime        time.Time   `json:"deadline_time"`
+			ID                  int         `json:"id"`
+			Name                string      `json:"name"`
+			Finished            bool        `json:"finished"`
+			HighestScoringEntry interface{} `json:"highest_scoring_entry"`
+			TradesTime          time.Time   `json:"trades_time"`
+			WaiversTime         time.Time   `json:"waivers_time"`
+		} `json:"data"`
+		Next int `json:"next"`
+	} `json:"events"`
+	Fixtures map[int][]struct {
+		ID                   int         `json:"id"`
+		Started              bool        `json:"started"`
+		Code                 int         `json:"code"`
+		Finished             bool        `json:"finished"`
+		FinishedProvisional  bool        `json:"finished_provisional"`
+		KickoffTime          time.Time   `json:"kickoff_time"`
+		Minutes              int         `json:"minutes"`
+		ProvisionalStartTime bool        `json:"provisional_start_time"`
+		TeamAScore           interface{} `json:"team_a_score"`
+		TeamHScore           interface{} `json:"team_h_score"`
+		PulseID              int         `json:"pulse_id"`
+		Event                int         `json:"event"`
+		TeamA                int         `json:"team_a"`
+		TeamH                int         `json:"team_h"`
+	} `json:"fixtures"`
+	Settings SettingsResponse `json:"settings"`
+	Teams    []struct {
+		Code      int    `json:"code"`
+		ID        int    `json:"id"`
+		Name      string `json:"name"`
+		PulseID   int    `json:"pulse_id"`
+		ShortName string `json:"short_name"`
+	} `json:"teams"`
 }
 
 type TeamResponse struct {
-	Code                int         `json:"code"`
-	Draw                int         `json:"draw"`
-	Form                interface{} `json:"form"`
-	ID                  int         `json:"id"`
-	Loss                int         `json:"loss"`
-	Name                string      `json:"name"`
-	Played              int         `json:"played"`
-	Points              int         `json:"points"`
-	Position            int         `json:"position"`
-	ShortName           string      `json:"short_name"`
-	Strength            int         `json:"strength"`
-	TeamDivision        interface{} `json:"team_division"`
-	Unavailable         bool        `json:"unavailable"`
-	Win                 int         `json:"win"`
-	StrengthOverallHome int         `json:"strength_overall_home"`
-	StrengthOverallAway int         `json:"strength_overall_away"`
-	StrengthAttackHome  int         `json:"strength_attack_home"`
-	StrengthAttackAway  int         `json:"strength_attack_away"`
-	StrengthDefenceHome int         `json:"strength_defence_home"`
-	StrengthDefenceAway int         `json:"strength_defence_away"`
-	PulseID             int         `json:"pulse_id"`
+	Code      int    `json:"code"`
+	ID        int    `json:"id"`
+	Name      string `json:"name"`
+	PulseID   int    `json:"pulse_id"`
+	ShortName string `json:"short_name"`
 }
 
 type EventsResponse struct {
-	ID                     int    `json:"id"`
-	Name                   string `json:"name"`
-	DeadlineTime           string `json:"deadline_time"`
-	AverageEntryScore      int    `json:"average_entry_score"`
-	Finished               bool   `json:"finished"`
-	DataChecked            bool   `json:"data_checked"`
-	HighestScoringEntry    int    `json:"highest_scoring_entry"`
-	DeadlineTimeEpoch      int    `json:"deadline_time_epoch"`
-	DeadlineTimeGameOffset int    `json:"deadline_time_game_offset"`
-	HighestScore           int    `json:"highest_score"`
-	IsPrevious             bool   `json:"is_previous"`
-	IsCurrent              bool   `json:"is_current"`
-	IsNext                 bool   `json:"is_next"`
-	ChipPlays              []struct {
-		ChipName  string `json:"chip_name"`
-		NumPlayed int    `json:"num_played"`
-	} `json:"chip_plays"`
-	MostSelected      int `json:"most_selected"`
-	MostTransferredIn int `json:"most_transferred_in"`
-	TopElement        int `json:"top_element"`
-	TopElementInfo    struct {
-		ID     int `json:"id"`
-		Points int `json:"points"`
-	} `json:"top_element_info"`
-	TransfersMade     int `json:"transfers_made"`
-	MostCaptained     int `json:"most_captained"`
-	MostViceCaptained int `json:"most_vice_captained"`
-}
-
-type PhasesResponse struct {
-	ID         int    `json:"id"`
-	Name       string `json:"name"`
-	StartEvent int    `json:"start_event"`
-	StopEvent  int    `json:"stop_event"`
+	Current int `json:"current"`
+	Data    []struct {
+		AverageEntryScore   interface{} `json:"average_entry_score"`
+		DeadlineTime        time.Time   `json:"deadline_time"`
+		ID                  int         `json:"id"`
+		Name                string      `json:"name"`
+		Finished            bool        `json:"finished"`
+		HighestScoringEntry interface{} `json:"highest_scoring_entry"`
+		TradesTime          time.Time   `json:"trades_time"`
+		WaiversTime         time.Time   `json:"waivers_time"`
+	} `json:"data"`
+	Next int `json:"next"`
 }
 
 type PlayerDetailedInfo struct {
@@ -314,40 +222,94 @@ type PlayerDetailedInfo struct {
 }
 
 type ElementStatsResponse struct {
-	Label string `json:"label"`
-	Name  string `json:"name"`
+	Name           string      `json:"name"`
+	Label          string      `json:"label"`
+	Abbreviation   string      `json:"abbreviation"`
+	IsMatchStat    bool        `json:"is_match_stat"`
+	MatchStatOrder interface{} `json:"match_stat_order"`
+	Sort           string      `json:"sort"`
 }
 
-type GameSettingsResponse struct {
-	LeagueJoinPrivateMax         int           `json:"league_join_private_max"`
-	LeagueJoinPublicMax          int           `json:"league_join_public_max"`
-	LeagueMaxSizePublicClassic   int           `json:"league_max_size_public_classic"`
-	LeagueMaxSizePublicH2H       int           `json:"league_max_size_public_h2h"`
-	LeagueMaxSizePrivateH2H      int           `json:"league_max_size_private_h2h"`
-	LeagueMaxKoRoundsPrivateH2H  int           `json:"league_max_ko_rounds_private_h2h"`
-	LeaguePrefixPublic           string        `json:"league_prefix_public"`
-	LeaguePointsH2HWin           int           `json:"league_points_h2h_win"`
-	LeaguePointsH2HLose          int           `json:"league_points_h2h_lose"`
-	LeaguePointsH2HDraw          int           `json:"league_points_h2h_draw"`
-	LeagueKoFirstInsteadOfRandom bool          `json:"league_ko_first_instead_of_random"`
-	CupStartEventID              int           `json:"cup_start_event_id"`
-	CupStopEventID               int           `json:"cup_stop_event_id"`
-	CupQualifyingMethod          string        `json:"cup_qualifying_method"`
-	CupType                      string        `json:"cup_type"`
-	SquadSquadplay               int           `json:"squad_squadplay"`
-	SquadSquadsize               int           `json:"squad_squadsize"`
-	SquadTeamLimit               int           `json:"squad_team_limit"`
-	SquadTotalSpend              int           `json:"squad_total_spend"`
-	UICurrencyMultiplier         int           `json:"ui_currency_multiplier"`
-	UIUseSpecialShirts           bool          `json:"ui_use_special_shirts"`
-	UISpecialShirtExclusions     []interface{} `json:"ui_special_shirt_exclusions"`
-	StatsFormDays                int           `json:"stats_form_days"`
-	SysViceCaptainEnabled        bool          `json:"sys_vice_captain_enabled"`
-	TransfersCap                 int           `json:"transfers_cap"`
-	TransfersSellOnFee           float64       `json:"transfers_sell_on_fee"`
-	LeagueH2HTiebreakStats       []string      `json:"league_h2h_tiebreak_stats"`
-	Timezone                     string        `json:"timezone"`
+type SettingsResponse struct {
+	League struct {
+		DefaultEntries          int    `json:"default_entries"`
+		DraftReminderHours      []int  `json:"draft_reminder_hours"`
+		DraftPostponeHours      int    `json:"draft_postpone_hours"`
+		DraftPushbackTimes      int    `json:"draft_pushback_times"`
+		H2HDraw                 int    `json:"h2h_draw"`
+		H2HLose                 int    `json:"h2h_lose"`
+		H2HWin                  int    `json:"h2h_win"`
+		MaxEntries              int    `json:"max_entries"`
+		MinEntries              int    `json:"min_entries"`
+		PrivateMax              int    `json:"private_max"`
+		PublicDraftDelayMinutes int    `json:"public_draft_delay_minutes"`
+		PublicDraftTzDefault    string `json:"public_draft_tz_default"`
+		PublicEntrySizes        []int  `json:"public_entry_sizes"`
+		PublicMax               int    `json:"public_max"`
+	} `json:"league"`
+	Scoring struct {
+		LongPlayLimit    int `json:"long_play_limit"`
+		ShortPlay        int `json:"short_play"`
+		LongPlay         int `json:"long_play"`
+		ConcedeLimit     int `json:"concede_limit"`
+		GoalsConcededGKP int `json:"goals_conceded_GKP"`
+		GoalsConcededDEF int `json:"goals_conceded_DEF"`
+		GoalsConcededMID int `json:"goals_conceded_MID"`
+		GoalsConcededFWD int `json:"goals_conceded_FWD"`
+		SavesLimit       int `json:"saves_limit"`
+		Saves            int `json:"saves"`
+		GoalsScoredGKP   int `json:"goals_scored_GKP"`
+		GoalsScoredDEF   int `json:"goals_scored_DEF"`
+		GoalsScoredMID   int `json:"goals_scored_MID"`
+		GoalsScoredFWD   int `json:"goals_scored_FWD"`
+		Assists          int `json:"assists"`
+		CleanSheetsGKP   int `json:"clean_sheets_GKP"`
+		CleanSheetsDEF   int `json:"clean_sheets_DEF"`
+		CleanSheetsMID   int `json:"clean_sheets_MID"`
+		CleanSheetsFWD   int `json:"clean_sheets_FWD"`
+		PenaltiesSaved   int `json:"penalties_saved"`
+		PenaltiesMissed  int `json:"penalties_missed"`
+		YellowCards      int `json:"yellow_cards"`
+		RedCards         int `json:"red_cards"`
+		OwnGoals         int `json:"own_goals"`
+		Bonus            int `json:"bonus"`
+	} `json:"scoring"`
+	Squad struct {
+		Size              int `json:"size"`
+		SelectGKP         int `json:"select_GKP"`
+		SelectDEF         int `json:"select_DEF"`
+		SelectMID         int `json:"select_MID"`
+		SelectFWD         int `json:"select_FWD"`
+		Play              int `json:"play"`
+		MinPlayGKP        int `json:"min_play_GKP"`
+		MaxPlayGKP        int `json:"max_play_GKP"`
+		MinPlayDEF        int `json:"min_play_DEF"`
+		MaxPlayDEF        int `json:"max_play_DEF"`
+		MinPlayMID        int `json:"min_play_MID"`
+		MaxPlayMID        int `json:"max_play_MID"`
+		MinPlayFWD        int `json:"min_play_FWD"`
+		MaxPlayFWD        int `json:"max_play_FWD"`
+		PositionTypeLocks struct {
+			Num12 string `json:"12"`
+		} `json:"position_type_locks"`
+		CaptainsDisabled bool `json:"captains_disabled"`
+	} `json:"squad"`
+	Transactions struct {
+		NewElementLockedHours           int `json:"new_element_locked_hours"`
+		TradeVetoMinimum                int `json:"trade_veto_minimum"`
+		TradeVetoHours                  int `json:"trade_veto_hours"`
+		WaiversBeforeStartMinHours      int `json:"waivers_before_start_min_hours"`
+		WaiversBeforeDeadlineHours      int `json:"waivers_before_deadline_hours"`
+		WaiversBeforeDeadlineHoursEvent struct {
+			Num36 int `json:"36"`
+		} `json:"waivers_before_deadline_hours_event"`
+	} `json:"transactions"`
+	UI struct {
+		SpecialShirtExclusions []interface{} `json:"special_shirt_exclusions"`
+		UseSpecialShirts       bool          `json:"use_special_shirts"`
+	} `json:"ui"`
 }
+
 type ElementTypesResponse struct {
 	ID                 int    `json:"id"`
 	PluralName         string `json:"plural_name"`
@@ -396,9 +358,12 @@ type WeeklyFixture []struct {
 	TeamH                int    `json:"team_h"`
 	TeamHScore           int    `json:"team_h_score"`
 	Stats                []struct {
-		Identifier string        `json:"identifier"`
-		A          []interface{} `json:"a"`
-		H          []struct {
+		Identifier string `json:"identifier"`
+		A          []struct {
+			Value   int `json:"value"`
+			Element int `json:"element"`
+		} `json:"a"`
+		H []struct {
 			Value   int `json:"value"`
 			Element int `json:"element"`
 		} `json:"h"`
@@ -687,93 +652,114 @@ type ManagerLeaguesCup struct {
 
 type ManagerCup struct{}
 
-type Weekly struct {
-	Current []struct {
-		Event              int `json:"event"`
-		Points             int `json:"points"`
-		TotalPoints        int `json:"total_points"`
-		Rank               int `json:"rank"`
-		RankSort           int `json:"rank_sort"`
-		OverallRank        int `json:"overall_rank"`
-		Bank               int `json:"bank"`
-		Value              int `json:"value"`
-		EventTransfers     int `json:"event_transfers"`
-		EventTransfersCost int `json:"event_transfers_cost"`
-		PointsOnBench      int `json:"points_on_bench"`
-	} `json:"current"`
-	Past  []interface{} `json:"past"`
-	Chips []interface{} `json:"chips"`
+type EntryHistory struct {
+	History []EntryHistoryWeek `json:"history"`
+	Entry   struct {
+		EventPoints       int    `json:"event_points"`
+		FavouriteTeam     int    `json:"favourite_team"`
+		ID                int    `json:"id"`
+		LeagueSet         []int  `json:"league_set"`
+		Name              string `json:"name"`
+		OverallPoints     int    `json:"overall_points"`
+		PlayerFirstName   string `json:"player_first_name"`
+		PlayerLastName    string `json:"player_last_name"`
+		RegionName        string `json:"region_name"`
+		RegionCodeShort   string `json:"region_code_short"`
+		RegionCodeLong    string `json:"region_code_long"`
+		StartedEvent      int    `json:"started_event"`
+		TransactionsEvent int    `json:"transactions_event"`
+		TransactionsTotal int    `json:"transactions_total"`
+	} `json:"entry"`
 }
 
-type WeeklyInfo struct {
-	Event              int `json:"event"`
-	Points             int `json:"points"`
-	TotalPoints        int `json:"total_points"`
-	Rank               int `json:"rank"`
-	RankSort           int `json:"rank_sort"`
-	OverallRank        int `json:"overall_rank"`
-	Bank               int `json:"bank"`
-	Value              int `json:"value"`
-	EventTransfers     int `json:"event_transfers"`
-	EventTransfersCost int `json:"event_transfers_cost"`
-	PointsOnBench      int `json:"points_on_bench"`
+type EntryHistoryWeek struct {
+	ID             int         `json:"id"`
+	Points         int         `json:"points"`
+	TotalPoints    int         `json:"total_points"`
+	Rank           interface{} `json:"rank"`
+	RankSort       interface{} `json:"rank_sort"`
+	EventTransfers int         `json:"event_transfers"`
+	PointsOnBench  int         `json:"points_on_bench"`
+	Entry          int         `json:"entry"`
+	Event          int         `json:"event"`
 }
-
 type LeagueInfo struct {
 	League struct {
-		ID          int         `json:"id"`
-		Name        string      `json:"name"`
-		Created     time.Time   `json:"created"`
-		Closed      bool        `json:"closed"`
-		MaxEntries  interface{} `json:"max_entries"`
-		LeagueType  string      `json:"league_type"`
-		Scoring     string      `json:"scoring"`
-		AdminEntry  int         `json:"admin_entry"`
-		StartEvent  int         `json:"start_event"`
-		CodePrivacy string      `json:"code_privacy"`
-		HasCup      bool        `json:"has_cup"`
-		CupLeague   interface{} `json:"cup_league"`
-		Rank        interface{} `json:"rank"`
+		AdminEntry         int       `json:"admin_entry"`
+		Closed             bool      `json:"closed"`
+		DraftDT            time.Time `json:"draft_dt"`
+		DraftPickTimeLimit int       `json:"draft_pick_time_limit"`
+		DraftStatus        string    `json:"draft_status"`
+		DraftTZShow        string    `json:"draft_tz_show"`
+		ID                 int       `json:"id"`
+		KORounds           int       `json:"ko_rounds"`
+		MakeCodePublic     bool      `json:"make_code_public"`
+		MaxEntries         int       `json:"max_entries"`
+		MinEntries         int       `json:"min_entries"`
+		Name               string    `json:"name"`
+		Scoring            string    `json:"scoring"`
+		StartEvent         int       `json:"start_event"`
+		StopEvent          int       `json:"stop_event"`
+		Trades             string    `json:"trades"`
+		TransactionMode    string    `json:"transaction_mode"`
+		Variety            string    `json:"variety"`
 	} `json:"league"`
-	NewEntries struct {
-		HasNext bool `json:"has_next"`
-		Page    int  `json:"page"`
-		Results []struct {
-			Entry           int       `json:"entry"`
-			EntryName       string    `json:"entry_name"`
-			JoinedTime      time.Time `json:"joined_time"`
-			PlayerFirstName string    `json:"player_first_name"`
-			PlayerLastName  string    `json:"player_last_name"`
-		} `json:"results"`
-	} `json:"new_entries"`
-	Standings struct {
-		HasNext bool          `json:"has_next"`
-		Page    int           `json:"page"`
-		Results []interface{} `json:"results"`
-	} `json:"standings"`
-}
-
-type StandingsResponse struct {
-	Entry      int    `json:"entry"`
-	EntryName  string `json:"entry_name"`
-	EventTotal int    `json:"event_total"`
-	ID         int    `json:"id"`
-	LastRank   int    `json:"last_rank"`
-	PlayerName string `json:"player_name"`
-	Rank       int    `json:"rank"`
-	RankSort   int    `json:"rank_sort"`
-	Total      int    `json:"total"`
-}
-type NewEntriesResponse struct {
-	HasNext bool `json:"has_next"`
-	Page    int  `json:"page"`
-	Results []struct {
-		Entry           int       `json:"entry"`
+	LeagueEntries []struct {
+		EntryID         int       `json:"entry_id"`
 		EntryName       string    `json:"entry_name"`
+		ID              int       `json:"id"`
 		JoinedTime      time.Time `json:"joined_time"`
 		PlayerFirstName string    `json:"player_first_name"`
 		PlayerLastName  string    `json:"player_last_name"`
-	} `json:"results"`
+		ShortName       string    `json:"short_name"`
+		WaiverPick      int       `json:"waiver_pick"`
+	} `json:"league_entries"`
+	Standings []struct {
+		EventTotal  int `json:"event_total"`
+		LastRank    int `json:"last_rank"`
+		LeagueEntry int `json:"league_entry"`
+		Rank        int `json:"rank"`
+		RankSort    int `json:"rank_sort"`
+		Total       int `json:"total"`
+	} `json:"standings"`
+}
+type LeagueResponse struct {
+	AdminEntry         int       `json:"admin_entry"`
+	Closed             bool      `json:"closed"`
+	DraftDT            time.Time `json:"draft_dt"`
+	DraftPickTimeLimit int       `json:"draft_pick_time_limit"`
+	DraftStatus        string    `json:"draft_status"`
+	DraftTZShow        string    `json:"draft_tz_show"`
+	ID                 int       `json:"id"`
+	KORounds           int       `json:"ko_rounds"`
+	MakeCodePublic     bool      `json:"make_code_public"`
+	MaxEntries         int       `json:"max_entries"`
+	MinEntries         int       `json:"min_entries"`
+	Name               string    `json:"name"`
+	Scoring            string    `json:"scoring"`
+	StartEvent         int       `json:"start_event"`
+	StopEvent          int       `json:"stop_event"`
+	Trades             string    `json:"trades"`
+	TransactionMode    string    `json:"transaction_mode"`
+	Variety            string    `json:"variety"`
+}
+type LeagueEntriesResponse struct {
+	EntryID         int       `json:"entry_id"`
+	EntryName       string    `json:"entry_name"`
+	ID              int       `json:"id"`
+	JoinedTime      time.Time `json:"joined_time"`
+	PlayerFirstName string    `json:"player_first_name"`
+	PlayerLastName  string    `json:"player_last_name"`
+	ShortName       string    `json:"short_name"`
+	WaiverPick      int       `json:"waiver_pick"`
+}
+type StandingsResponse struct {
+	EventTotal  int `json:"event_total"`
+	LastRank    int `json:"last_rank"`
+	LeagueEntry int `json:"league_entry"`
+	Rank        int `json:"rank"`
+	RankSort    int `json:"rank_sort"`
+	Total       int `json:"total"`
 }
 type MyTeam struct {
 	Picks []struct {
@@ -816,26 +802,14 @@ type TransferHistory struct {
 }
 
 type TeamWeekly struct {
-	ActiveChip    string        `json:"active_chip"`
-	AutomaticSubs []interface{} `json:"automatic_subs"`
-	EntryHistory  struct {
-		Event              int `json:"event"`
-		Points             int `json:"points"`
-		TotalPoints        int `json:"total_points"`
-		Rank               int `json:"rank"`
-		RankSort           int `json:"rank_sort"`
-		OverallRank        int `json:"overall_rank"`
-		Bank               int `json:"bank"`
-		Value              int `json:"value"`
-		EventTransfers     int `json:"event_transfers"`
-		EventTransfersCost int `json:"event_transfers_cost"`
-		PointsOnBench      int `json:"points_on_bench"`
-	} `json:"entry_history"`
 	Picks []struct {
 		Element       int  `json:"element"`
 		Position      int  `json:"position"`
-		Multiplier    int  `json:"multiplier"`
 		IsCaptain     bool `json:"is_captain"`
 		IsViceCaptain bool `json:"is_vice_captain"`
+		Multiplier    int  `json:"multiplier"`
 	} `json:"picks"`
+	EntryHistory struct {
+	} `json:"entry_history"`
+	Subs []interface{} `json:"subs"`
 }
